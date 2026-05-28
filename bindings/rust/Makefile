@@ -1,11 +1,17 @@
 VERSION=$(shell cat ../../VERSION)
 
-deps: Cargo.toml sqlite-vec.c sqlite-vec.h sqlite3ext.h sqlite3.h
+deps: Cargo.toml sqlite-vec.c sqlite-vec.h sqlite3ext.h sqlite3.h sqlite-vec-diskann.c sqlite-vec-rescore.c
 
 Cargo.toml: ../../VERSION Cargo.toml.tmpl
 		VERSION=$(VERSION) envsubst < Cargo.toml.tmpl > $@
 
 sqlite-vec.c: ../../sqlite-vec.c
+		cp $< $@
+
+sqlite-vec-diskann.c: ../../sqlite-vec-diskann.c
+		cp $< $@
+
+sqlite-vec-rescore.c: ../../sqlite-vec-rescore.c
 		cp $< $@
 
 sqlite-vec.h: ../../sqlite-vec.h
